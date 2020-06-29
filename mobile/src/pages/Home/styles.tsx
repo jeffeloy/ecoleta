@@ -4,7 +4,6 @@ import { StyleSheet } from "react-native";
 export const Container = styled.ImageBackground`
   flex: 1;
   padding: 32px;
-  background-color: #f0f0f5;
 `;
 export const Logo = styled.Image``;
 export const Main = styled.View`
