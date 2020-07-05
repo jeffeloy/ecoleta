@@ -1,5 +1,6 @@
 import React from "react";
 import { Feather as Icon} from "@expo/vector-icons";
+
 import { 
   Container, 
   Title, 
@@ -9,6 +10,9 @@ import {
   ItemsContainer, 
   Item, 
   ItemTitle,
+  MapMarkerContainer,
+  MapMarkerImage,
+  MapMarkerTitle,
   styles} from "./styles";
 import {ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -21,6 +25,10 @@ const Points = () => {
 
   function handleNavigateBack() {
     navigation.goBack();
+  }
+
+  function handleNavigateToDetail() {
+    navigation.navigate('Details');
   }
 
   return (
@@ -47,6 +55,18 @@ const Points = () => {
             }}
           >
 
+            <Marker 
+              style={styles.mapMarker}
+              onPress={handleNavigateToDetail}  
+              coordinate={{
+                latitude: -12.9545284, 
+                longitude: -38.6335703,}}
+            >
+              <MapMarkerContainer>
+                <MapMarkerImage source={{ uri:'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80' }} resizeMode="cover"/>
+                <MapMarkerTitle>Mercado</MapMarkerTitle> 
+              </MapMarkerContainer>  
+            </Marker>
           </MapView>
         </MapContainer>
       </Container>

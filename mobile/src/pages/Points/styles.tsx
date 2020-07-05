@@ -25,6 +25,26 @@ export const MapContainer = styled.View`
   overflow: hidden;
   margin-top: 16px;
 `;
+export const MapMarkerContainer = styled.View`
+  width: 90px;
+  height: 70px;
+  background-color: #34CB79;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  align-items: center
+`;
+export const MapMarkerImage = styled.Image`
+  width: 90px;
+  height: 45px;
+`;
+export const MapMarkerTitle = styled.Text`
+  flex: 1;
+  font-family: 'Roboto_400Regular';
+  color: #FFF;
+  font-size: 13px;
+  line-height: 23px;
+`;
 export const ItemsContainer = styled.View`
   flex-direction: row;
   margin-top: 16px;
@@ -55,5 +75,10 @@ export  const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
+  },
+
+  mapMarker: {
+    width: 90,
+    height: 80, 
   },
 })
