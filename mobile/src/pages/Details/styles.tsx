@@ -41,11 +41,14 @@ export const AddressContent = styled.Text`
   color: #6C6C80;
 `;
 export const Footer = styled.View`
-  border-top-width:3px;
+  border-top-width:2px;
   border-color: #999;
   padding: 20px 32px;
   flex-direction: row;
   justify-content: space-between;
+`;
+export const SafeAreaView = styled.SafeAreaView`
+  flex: 1;
 `;
 export const ButtonText = styled.Text`
   margin-left: 8px;
@@ -56,6 +59,7 @@ export const ButtonText = styled.Text`
 export const styles = StyleSheet.create({
   button: {
     backgroundColor: "#34CB79",
+    width: 130,
     height: 60,
     flexDirection: "row",
     borderRadius: 10,
@@ -63,5 +67,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 8,
     paddingHorizontal: 10,
+    justifyContent:"center",
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { Feather as Icon, FontAwesome} from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import {useNavigation} from "@react-navigation/native";
-import { Container, TouchbaleIcon, PointImage, PointName, PointItens, Address, AddressTitle, AddressContent, Footer, ButtonText, styles} from "./styles";
+import { Container, TouchbaleIcon, PointImage, PointName, PointItens, Address, AddressTitle, AddressContent, Footer, ButtonText, SafeAreaView, styles} from "./styles";
 const Details = () => {
   const navigation = useNavigation();
 
@@ -11,7 +11,7 @@ const Details = () => {
   }
 
   return (
-    <>
+    <SafeAreaView>
     <Container>
        <TouchbaleIcon onPress={handleNavigateBack}>
           <Icon name="arrow-left" size={20} color="#34cb79"/>
@@ -30,15 +30,15 @@ const Details = () => {
     
     <Footer>
       <RectButton style={styles.button} onPress={() => {}}>          
-        <FontAwesome name="whatsapp" color="#FFF" size={24} />
+        <FontAwesome name="whatsapp" color="#FFF" size={20} />
         <ButtonText>Whatsapp</ButtonText>
       </RectButton>
       <RectButton style={styles.button} onPress={() => {}}>          
-        <Icon name="mail" color="#FFF" size={24} />
+        <Icon name="mail" color="#FFF" size={20} />
         <ButtonText>E-mail</ButtonText>
       </RectButton>
     </Footer>
-    </>
+    </SafeAreaView>
   );
 };
 
