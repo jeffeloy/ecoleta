@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Feather as Icon} from "@expo/vector-icons";
+import * as Location from "expo-location";
 
 import { 
   Container, 
@@ -14,7 +15,7 @@ import {
   MapMarkerImage,
   MapMarkerTitle,
   styles} from "./styles";
-import {ScrollView} from "react-native";
+import {ScrollView, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MapView, {Marker} from "react-native-maps";
 import Emoji from "react-native-emoji";
@@ -30,7 +31,32 @@ interface Item {
 const Points = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  const [initialPosition, setInitialPosition] = useState<[number,number]>([0,0]);
+
   const navigation = useNavigation();
+
+  useEffect(()=>{
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync();
+
+      if(status !== 'granted') {
+        Alert.alert('Ooops...', 'Precisamos de sua permissão para obter a localização');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+      
+      const { latitude, longitude } = location.coords;
+
+      setInitialPosition([
+        latitude,
+        longitude
+      ]);
+    } 
+    loadPosition();
+  },[]);
+
   useEffect(()=>{
     api.get("/items").then(response => {
       setItems(response.data);
@@ -71,11 +97,13 @@ const Points = () => {
         <Description>Encontre no mapa um ponto de coleta.</Description>
 
         <MapContainer>
-          <MapView 
+          { initialPosition[0] !== 0 && (
+            <MapView 
             style={styles.map}
+            loadingEnabled={initialPosition[0] === 0}
             initialRegion={{
-              latitude: -12.9545284,
-              longitude: -38.6335703,
+              latitude: initialPosition[0],
+              longitude: initialPosition[1],
               latitudeDelta: 0.014,
               longitudeDelta: 0.014,
             }}
@@ -94,6 +122,7 @@ const Points = () => {
               </MapMarkerContainer>  
             </Marker>
           </MapView>
+          )}
         </MapContainer>
       </Container>
       <ItemsContainer>
