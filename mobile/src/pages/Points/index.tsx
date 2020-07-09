@@ -27,9 +27,17 @@ interface Item {
   title: string;
   image_url: string;
 }
+interface Point {
+  id: number;
+  name: string;
+  image: string;
+  latitude: number;
+  longitude: number;
+}
 
 const Points = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const [initialPosition, setInitialPosition] = useState<[number,number]>([0,0]);
@@ -60,6 +68,18 @@ const Points = () => {
   useEffect(()=>{
     api.get("/items").then(response => {
       setItems(response.data);
+    });
+  },[]);
+
+  useEffect(() => {
+    api.get('points', {
+      params: {
+        city: 'Vera Cruz',
+        uf: 'BA',
+        items: [6]
+      }
+    }).then(response => {
+      setPoints(response.data);
     });
   },[]);
 
@@ -108,19 +128,22 @@ const Points = () => {
               longitudeDelta: 0.014,
             }}
           >
-
-            <Marker 
+            
+            {points.map(point => (
+              <Marker 
+              key={String(point.id)}
               style={styles.mapMarker}
               onPress={handleNavigateToDetail}  
               coordinate={{
-                latitude: -12.9545284, 
-                longitude: -38.6335703,}}
+                latitude: point.latitude, 
+                longitude: point.longitude,}}
             >
               <MapMarkerContainer>
-                <MapMarkerImage source={{ uri:'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80' }} resizeMode="cover"/>
-                <MapMarkerTitle>Mercado</MapMarkerTitle> 
+                <MapMarkerImage source={{ uri: point.image }} resizeMode="cover"/>
+                <MapMarkerTitle>{point.name}</MapMarkerTitle> 
               </MapMarkerContainer>  
             </Marker>
+            ))}
           </MapView>
           )}
         </MapContainer>

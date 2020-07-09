@@ -42,7 +42,7 @@ export const MapMarkerTitle = styled.Text`
   flex: 1;
   font-family: 'Roboto_400Regular';
   color: #FFF;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 23px;
 `;
 export const ItemsContainer = styled.View`
