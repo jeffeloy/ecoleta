@@ -1,13 +1,48 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Feather as Icon, FontAwesome} from "@expo/vector-icons";
-import { RectButton } from "react-native-gesture-handler";
-import {useNavigation} from "@react-navigation/native";
-import { Container, TouchbaleIcon, PointImage, PointName, PointItens, Address, AddressTitle, AddressContent, Footer, ButtonText, SafeAreaView, styles} from "./styles";
-const Details = () => {
-  const navigation = useNavigation();
 
+import { RectButton } from "react-native-gesture-handler";
+import {useNavigation, useRoute} from "@react-navigation/native";
+
+import { Container, TouchbaleIcon, PointImage, PointName, PointItens, Address, AddressTitle, AddressContent, Footer, ButtonText, SafeAreaView, styles} from "./styles";
+import api from "../../services/api";
+
+interface Params {
+  point_id: number;
+}
+
+interface Data {
+  point: {
+    image: string;
+    name: string;
+    email: string;
+    whatsapp: string;
+    city: string;
+    uf: string;
+  };
+  items: {
+    title:string;
+  }[];
+}
+
+const Details = () => {
+  const [data, setData] = useState<Data>({} as Data);
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const routeParams = route.params as Params;
+
+  useEffect(() => {
+    api.get(`points/${routeParams.point_id}`).then(response => {
+      setData(response.data);
+    });
+  },[])
   function handleNavigateBack() {
     navigation.goBack();
+  }
+
+  if(!data.point) {
+    return null;
   }
 
   return (
@@ -17,14 +52,16 @@ const Details = () => {
           <Icon name="arrow-left" size={20} color="#34cb79"/>
         </TouchbaleIcon>
 
-        <PointImage source={{ uri: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80'}} resizeMode="cover"/>
+        <PointImage source={{ uri: data.point.image}} resizeMode="cover"/>
 
-        <PointName>Mercado do Jefferson</PointName>
-        <PointItens>Lâmpadas, Óleo de cozinha</PointItens>
+        <PointName>{data.point.name}</PointName>
+        <PointItens>
+          {data.items.map(item => item.title).join(',')}
+        </PointItens>
 
         <Address>
           <AddressTitle>Endereço</AddressTitle>
-          <AddressContent>Vera Cruz / BA</AddressContent>
+          <AddressContent>{data.point.city}/ {data.point.uf}</AddressContent>
         </Address>
     </Container>
     
