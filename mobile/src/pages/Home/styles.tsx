@@ -41,6 +41,15 @@ export const ButtonText = styled.Text`
   font-family: Roboto_500Medium;
   font-size: 16px;
 `;
+export const Picker = styled.Picker`
+  height: 60px;
+  width: 360px;
+  color: #6c6c80;
+  margin-bottom: 8px;
+`;
+export const PickersView = styled.View`
+
+`;
 export const styles = StyleSheet.create({
   button: {
     backgroundColor: "#34CB79",
