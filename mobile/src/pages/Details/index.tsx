@@ -16,6 +16,7 @@ interface Params {
 interface Data {
   point: {
     image: string;
+    image_url: string;
     name: string;
     email: string;
     whatsapp: string;
@@ -65,7 +66,7 @@ const Details = () => {
           <Icon name="arrow-left" size={20} color="#34cb79"/>
         </TouchbaleIcon>
 
-        <PointImage source={{ uri: data.point.image}} resizeMode="cover"/>
+        <PointImage source={{ uri: data.point.image_url}} resizeMode="cover"/>
 
         <PointName>{data.point.name}</PointName>
         <PointItens>
