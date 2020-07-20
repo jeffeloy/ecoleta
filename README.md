@@ -13,10 +13,9 @@
 
 Aplicação totalmente voltada para fins ecológicos, que realiza o cadastro e listagem de pontos de coleta de resíduos. E tornar mais prática a conexão entre as pessoas e as empresas coletoras de resíduos.
 
-<!-- <p align="center">
-  <img align="center" src="./docs/Screenshot.png" alt="Web-Signin" border="0">
+<p align="center">
+  <img align="center" src="./.github/introimg.png" alt="Web-Signin" border="0">
 </p>
- -->
 
 ## :nazar_amulet: Objetivo
 
